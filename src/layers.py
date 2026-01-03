@@ -36,3 +36,51 @@ def manual_convolution_2d(input_image, kernel):
             output_map[i, j] = np.sum(region * kernel)
             
     return output_map
+
+def relu(feature_map):
+    """
+    The 'Bouncer' Function.
+    Anything negative becomes 0.
+    Anything positive stays the same.
+    """
+    return np.maximum(0, feature_map)
+
+def max_pooling(feature_map, pool_size = 2, stride = 2):
+    """
+    Downsamples the image by keeping only the strongest feature.
+    
+    Args:
+        feature_map: The input matrix (from ReLU).
+        pool_size: Size of the window (usually 2x2).
+        stride: How much we jump (usually 2).
+    
+    Returns:
+        The compressed version of the map (Half the size).
+    """
+    # 1. Get Dimensions
+    h_prev, w_prev = feature_map.shape
+
+    # 2. Calculate Output Dimensions
+    # Formula: (Input - Pool) / Stride + 1
+    h = int((h_prev - pool_size)/ stride + 1)
+    w = int((w_prev - pool_size)/stride + 1)
+
+    downsampled_map = np.zeros((h,w))
+
+    # 4. The Loop (Jumping, not Sliding)
+    for i in range(h):
+        for j in range(w):
+            # Find the starting points in the original map
+            start_row = i * stride
+            start_col = j * stride
+
+            #Extract the 2*2 Patch:
+            region = feature_map[start_row : start_row + pool_size,
+                                 start_col : start_col + pool_size]
+            
+            # 5. The Selection: Keep ONLY the max value
+            downsampled_map[i,j] = np.max(region)
+
+        return downsampled_map
+    
+
