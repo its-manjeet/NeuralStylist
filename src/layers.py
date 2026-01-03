@@ -22,7 +22,7 @@ def manual_convolution_2d(input_image, kernel):
     output_map = np.zeros((output_h, output_w))
     
     # 4. THE SLIDING WINDOW (The Loop)
-    # We slide the filter over the image, row by row, col by col.
+    # We slide the filter over the image,row by row, col by col
     for i in range(output_h):
         for j in range(output_w):
             
@@ -82,5 +82,17 @@ def max_pooling(feature_map, pool_size = 2, stride = 2):
             downsampled_map[i,j] = np.max(region)
 
         return downsampled_map
+
+def flatten(feature_map):
+    """
+    The 'Bridge' Layer.
+    Takes a 2D matrix (from Pooling) and squashes it into a 1D vector.
+    
+    Example:
+    Input:  [[30, 0], 
+             [0,  0]]
+    Output: [30, 0, 0, 0]
+    """
+    return feature_map.flatten()
     
 
