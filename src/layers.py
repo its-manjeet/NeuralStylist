@@ -94,5 +94,23 @@ def flatten(feature_map):
     Output: [30, 0, 0, 0]
     """
     return feature_map.flatten()
+
+def dense(inputs, weights, bias):
+    """
+    The 'Brain' Layer (Fully Connected).
+    Computes the weighted sum of inputs plus a bias.
+    
+    Formula: Z = dot(inputs, weights) + bias
+    
+    Args:
+        inputs: The 1D feature vector (e.g., [30, 0, 0, 0])
+        weights: A matrix connecting every input to every output neuron.
+        bias: A vector of thresholds.
+    
+    Returns:
+        The raw scores (logits) for each class.
+    """
+    # The dot product calculates the weighted sum for us
+    return np.dot(inputs, weights) + bias
     
 
