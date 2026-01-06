@@ -1,6 +1,7 @@
 import numpy as np
 from src.layers import manual_convolution_2d, relu, max_pooling, flatten, dense
-
+from src.activations import softmax
+from src.loss import categorical_cross_entropy
 # 1. THE INPUT (Image)
 image = np.array([
     [0, 0, 10, 0, 0],
@@ -61,4 +62,34 @@ if scores[0] > scores[1]:
     print("Prediction: Class A (Vertical)")
 else:
     print("Prediction: Class B (Horizontal)")
+
+print("\n---PHASE:4 ACTIVATION (The Translator)---")
+
+probs = softmax(scores)
+
+print(f"Probabiliities : {probs}")
+print(f"Sum of Probs: {np.sum(probs)} (Should be 1.0)")
+
+# Improved Prediction Logic
+class_names = ["Vertical", "Horizontal"]
+winner_index = np.argmax(probs) # Finds the index of the highest number
+winner_name = class_names[winner_index]
+confidence = probs[winner_index]*100
+
+print(f"\nFINAL PREDICTION: {winner_name} ({confidence:.2f}% confidence)")
+
+print(f"\n--- PHASE 5: THE JUDGE(Loss Calcualtion) ---")
+# Let's say the TRUE label is Class 0 (Vertical)
+target_class = 1
+print(f"True Target: Class {target_class}(Horizontal)")
+
+#Calculate Loss:
+loss = categorical_cross_entropy(probs, target_class)
+print(f"Loss (Error Score): {loss:.8f}")
+
+if loss<0.1:
+    print("Verdict:  Great Job Low Error")
+else:
+    print("Verdict: High Error, Punishment Needed")
+
 
