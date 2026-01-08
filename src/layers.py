@@ -112,5 +112,7 @@ def dense(inputs, weights, bias):
     """
     # The dot product calculates the weighted sum for us
     return np.dot(inputs, weights) + bias
+
+
     
 
