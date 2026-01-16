@@ -81,7 +81,7 @@ def max_pooling(feature_map, pool_size = 2, stride = 2):
             # 5. The Selection: Keep ONLY the max value
             downsampled_map[i,j] = np.max(region)
 
-        return downsampled_map
+    return downsampled_map
 
 def flatten(feature_map):
     """

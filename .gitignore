@@ -1,7 +1,11 @@
-# Ignore the virtual environment
+# Ignore the Virtual Environment (Huge folder)
 .venv/
+venv/
 __pycache__/
-*.pyc
 
-# Ignore system files
+# Ignore the heavy AI brain (GitHub has a 100MB limit)
+*.h5
+*.keras
+
+# Ignore Mac/Windows junk
 .DS_Store
